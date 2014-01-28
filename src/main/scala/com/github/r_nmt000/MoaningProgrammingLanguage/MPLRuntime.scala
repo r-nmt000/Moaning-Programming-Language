@@ -13,6 +13,8 @@ class BrainfuckRuntime(parser: BrainfuckParser, size: Int) {
 
   var counter = 0
 
+  var readBuf:String = ""
+
   val evaluator = new Evaluator()
 
   def this(parser: BrainfuckParser) = this (parser, 3000)
@@ -89,7 +91,11 @@ class BrainfuckRuntime(parser: BrainfuckParser, size: Int) {
     }
 
     private def inputMemoryAtPointer {
-      writeMemory(readChar.toInt)
+      if(readBuf.isEmpty) {
+        readBuf = readLine("input > ")
+      }
+      writeMemory(readBuf.head.toInt)
+      readBuf = readBuf.tail
     }
 
 
